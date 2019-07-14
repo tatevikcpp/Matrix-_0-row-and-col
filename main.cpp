@@ -24,16 +24,13 @@ void OutMatrix(int a[n][m])
 	
 	while (!s.empty())
 	{
-		for (int i = 0; i < n; ++i)
-		{
-			for (int j = 0; j < m; ++j)
-			{
-				pair <int, int> p = s.top();
-				if (i == p.first || j == p.second)
-					a[i][j] = 0;
-			}
-			
-		}
+
+		pair <int, int> p = s.top();
+		for (i = 0; i < n; ++i)
+			a[i][p.second] = 0;
+		for (j = 0; j < m; ++j)
+			a[p.first][j] = 0;
+
 		s.pop();
 	}
 }
