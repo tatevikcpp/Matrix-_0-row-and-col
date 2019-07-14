@@ -1,12 +1,13 @@
 #include <iostream>
+#include <stack>
+using namespace std;
 #define n 4
 #define m 5
 
-void OutMatrix(int  a[n][m])
+void OutMatrix(int a[n][m])
 {
-	int  row[n];
-	int  col[m];
 	int  i, j;
+	stack< pair <int, int> > s;
 
 	for (i = 0; i < n; ++i)
 	{
@@ -14,22 +15,26 @@ void OutMatrix(int  a[n][m])
 		{
 			if (a[i][j] == 0)
 			{
-				row[i] = 0;
-				col[j] = 0;
+				s.push(make_pair(i, j));
 			}
+			
 		}
+		
 	}
-
-
-	for (i = 0; i < n; ++i)
+	
+	while (!s.empty())
 	{
-		for (j = 0; j < m; ++j)
+		for (int i = 0; i < n; ++i)
 		{
-			if (row[i] == 0 || col[j] == 0)
+			for (int j = 0; j < m; ++j)
 			{
-				a[i][j] = 0;
+				pair <int, int> p = s.top();
+				if (i == p.first || j == p.second)
+					a[i][j] = 0;
 			}
+			
 		}
+		s.pop();
 	}
 }
 
@@ -40,27 +45,28 @@ void printMatrix(int a[n][m])
 	{
 		for (j = 0; j < m; ++j)
 		{
-			std::cout << a[i][j] << "  ";
+			cout << a[i][j] << "  ";
 		}
-		std::cout << std::endl;
+		cout << endl;
 	}
 }
 
 int main()
 {
-	int a[n][m] = { {1, 0, 1, 1, 1},
-					{1, 1, 1, 1, 1},
-					{1, 1, 0, 1, 1},
-					{1, 1, 1, 1, 1} };
+	int a[n][m] =   {{1, 0, 1, 1, 1},
+			 {1, 1, 1, 1, 1},
+			 {1, 1, 0, 1, 1},
+			 {1, 1, 1, 1, 1}};
 
 
-	std::cout << "Input matrix" << std::endl;;
+	cout << "Input matrix" << endl;;
+
 	printMatrix(a);
 
 	OutMatrix(a);
 
-	std::cout << "Output matrix" << std::endl;
-	printMatrix(a);
+	cout << "Output matrix" << endl;
 
+	printMatrix(a);
 }
 
